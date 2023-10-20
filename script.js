@@ -1,5 +1,7 @@
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    const fname = document.getElementById('firstname').value;
+    const lname = document.getElementById('lastname').value;
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
