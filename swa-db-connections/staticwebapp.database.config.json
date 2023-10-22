@@ -30,7 +30,7 @@
     },
     "entities": {
       "Person": {
-        "source": "dbo.libraryapp",
+        "source": "dbo.library_admin",
         "permissions": [
           {
             "actions": ["create", "read", "update", "delete"],
