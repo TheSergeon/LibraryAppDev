@@ -30,11 +30,11 @@
     },
     "entities": {
       "Person": {
-        "source": "dbo.MyTestPersonTable",
+        "source": "dbo.libraryapp",
         "permissions": [
           {
             "actions": ["create", "read", "update", "delete"],
-            "role": "anonymous"
+            "role": "dbo_owner"
           }
         ]
       }
