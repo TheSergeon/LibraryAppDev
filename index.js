@@ -1,4 +1,9 @@
-const sql = require("mssql/msnodesqlv8");
+const sql = require("mssql/msnodesqlv8");//Adding mssql
+const express = require('express'); //Adding Express
+const bodyParser = require('body-parser');//Using parser to take in fields
+//Setting up variables for express app and MS Sql config
+const app = express();
+const port = process.env.PORT || 3000; // Set the port
 var config = {
     server:"libappdev.database.windows.net",
     database:"libappdev",
@@ -9,14 +14,59 @@ var config = {
         trustedconnection: true,
     }
 }
+// Middleware to parse JSON data
+app.use(bodyParser.json());
 
+// Connect to the database
+sql.connect(config, (err) => {
+    if (err) {
+      console.error('Database connection failed: ' + err.message);
+    } else {
+      console.log('Connected to the database');
+    }
+  });
+  
+  // Handle the form submission
+  app.post('/register', (req, res) => {
+    const { fname, lname, username, email, password } = req.body;
+  
+    const query = `
+      INSERT INTO Users (username, email, password)
+      VALUES ('${fname}','${lname}','${username}', '${email}', '${password}')
+    `;
+  
+    const request = new sql.Request();
+    request.query(query, (err) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        return res.status(500).send('An error occurred while processing the request.');
+      }
+  
+      console.log('User registered successfully');
+      res.status(201).send('User registered successfully.');
+    });
+  });
+  
+  // Start the server
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+
+/*
 console.log("Starting...");
 connectAndQuery();
 
 async function connectAndQuery() {
     try {
         var poolConnection = await sql.connect(config);
-
+        app.post('/register', (req, res) => {
+            const { username, email, password } = req.body;
+          
+            const query = `
+              INSERT INTO Users (username, email, password)
+              VALUES ('${username}', '${email}', '${password}')
+            `;
+          
         console.log("Reading rows from the Table...");
         var resultSet = await poolConnection.request().query(`Select * from users`);
 
@@ -39,4 +89,4 @@ async function connectAndQuery() {
     } catch (err) {
         console.error(err.message);
     }
-}
+}*/
