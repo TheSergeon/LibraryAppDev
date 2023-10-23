@@ -1,5 +1,5 @@
-const sql = require("mssql/msnodesqlv8");//Adding mssql
-const express = require('express'); //Adding Express
+const sql = require("mssql");//Adding mssql
+const express = require("express"); //Adding Express
 const bodyParser = require('body-parser');//Using parser to take in fields
 //Setting up variables for express app and MS Sql config
 const app = express();
