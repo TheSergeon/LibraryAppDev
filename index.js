@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000; // Set the port
 var config = {
     server:"libappdev.database.windows.net",
     database:"libappdev",
-    driver:"msnodesqlv8",
     user: "library_admin",
     password: "Team14UMA",
     options:{
