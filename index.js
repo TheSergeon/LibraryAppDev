@@ -28,12 +28,12 @@ sql.connect(config, (err) => {
   
   // Handle the form submission
   app.post('/register', (req, res) => {
-    const { fname, lname, username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
   
     const query = `
-      INSERT INTO Users (username, email, password)
-      VALUES ('${fname}','${lname}','${username}', '${email}', '${password}')
-    `;
+      INSERT INTO Users (user_id, first_name, last_name, username, email)
+      VALUES ('1','${firstname}','${lastname}','${username}', '${email}')
+    `; //TO DO: NEED TO ADD PASSWORD BACK IN - , '${password}'
   
     const request = new sql.Request();
     request.query(query, (err) => {
